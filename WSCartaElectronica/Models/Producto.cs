@@ -12,6 +12,7 @@ namespace WSCartaElectronica.Models
         public String grupo { get; set; }
         public String especificaciones { get; set; }
         public Double precio { get; set; }
+        public String imagen{ get; set; }
 
 
     }

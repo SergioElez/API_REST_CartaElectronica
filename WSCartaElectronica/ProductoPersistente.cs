@@ -13,6 +13,12 @@ namespace WSCartaElectronica
     {
         private MySql.Data.MySqlClient.MySqlConnection conexion;
 
+
+
+        // ------ METODOS PARA CRUD ------ \\
+
+
+
         public ProductoPersistente()
         {
             string cadenaConexion = "server=127.0.0.1;uid=root;pwd=eslora;database=restaurante";
@@ -49,17 +55,25 @@ namespace WSCartaElectronica
             String sqlString = "SELECT * FROM producto WHERE codigo = " + id.ToString();
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            if (mySQLReader.Read())
+            //Si hay un error al hacer la consulta que devuelva null
+            try
             {
-                return LeerProducto(mySQLReader);
+                mySQLReader = cmd.ExecuteReader();
+                if (mySQLReader.Read())
+                {
+                    return LeerProducto(mySQLReader);
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
+            catch(Exception e)
             {
                 return null;
             }
         }
-
+        
         public ArrayList ObtenerProductos()
         {
             ArrayList arrayProductos = new ArrayList();
@@ -79,7 +93,7 @@ namespace WSCartaElectronica
 
             return arrayProductos;
         }
-
+        
 
         public long GuardarProducto(Producto productoAGuardar)
         {
@@ -167,6 +181,51 @@ namespace WSCartaElectronica
             {
                 return false;
             }
+        }
+
+
+        // ------ METODOS EXTRA ----- \\
+
+        public ArrayList BuscarProductosPorNombre(string nombre)
+        {
+            ArrayList arrayProductos = new ArrayList();
+
+            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
+
+            String sqlString = "SELECT * FROM producto WHERE nombre LIKE '%" + nombre + "%'";
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+
+            mySQLReader = cmd.ExecuteReader();
+            while (mySQLReader.Read())
+            {
+                Producto p = LeerProducto(mySQLReader);
+
+                arrayProductos.Add(p);
+            }
+
+            return arrayProductos;
+        }
+
+        public ArrayList BuscarProductosPorTag(string tag)
+        {
+            ArrayList arrayProductos = new ArrayList();
+
+            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
+
+            //String sqlString = "SELECT Trad.texto, Traduccion Trad WHERE Trad.id_tipo == 'plato' AND Trad.idioma == 1";
+            String sqlString = "SELECT P.id, Trad.texto P.imagen, P.precio, P.descripcion, P.id_familia, Traduccion Trad, Plato P WHERE Trad.id_tipo == 'plato' AND Trad.idioma == 1";
+            //String sqlString = "SELECT * FROM plato P, tag T, traduccion Trad WHERE Trad.id_tipo == 'plato' AND Trad.idioma == 1 AND nombre LIKE '%" + tag + "%'";
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+
+            mySQLReader = cmd.ExecuteReader();
+            while (mySQLReader.Read())
+            {
+                Producto p = LeerProducto(mySQLReader);
+
+                arrayProductos.Add(p);
+            }
+
+            return arrayProductos;
         }
 
     }

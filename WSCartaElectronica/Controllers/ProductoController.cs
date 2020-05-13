@@ -13,19 +13,24 @@ namespace WSCartaElectronica.Controllers
     [EnableCors(origins: "http://localhost:8100", headers: "*", methods: "*")]
     public class ProductoController : ApiController
     {
+
+        // ----------- CRUD ----------- \\
+
         // GET: api/Producto
         public ArrayList Get()
         {
             ProductoPersistente pp = new ProductoPersistente();
             return pp.ObtenerProductos();
+
         }
+
+        
 
         // GET: api/Producto/5
         public Producto Get(int id)
         {
             ProductoPersistente pp = new ProductoPersistente();
             Producto producto = pp.ObtenerProducto(id);
-
             return producto;
         }
 
@@ -79,6 +84,28 @@ namespace WSCartaElectronica.Controllers
 
             return respuesta;
         }
+
+        // ------ RUTAS PERSONALIZADAS ----- \\
+
+        //Buscar por nombre de producto
+        [HttpGet]
+        [Route("api/producto/nombre/{nombre}")]
+        public ArrayList BuscarPorNombre(string nombre)
+        {
+            ProductoPersistente pp = new ProductoPersistente();
+            return pp.BuscarProductosPorNombre(nombre);
+        }
+
+
+        //Buscar por tag
+        [HttpGet]
+        [Route("api/producto/nombre/{nombre}")]
+        public ArrayList BuscarPorTag(string nombre)
+        {
+            ProductoPersistente pp = new ProductoPersistente();
+            return pp.BuscarProductosPorNombre(nombre);
+        }
+
     }
 }
 
