@@ -105,6 +105,8 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\FamiliaController.cs" />
+    <Compile Include="Controllers\PlatoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TokenGenerator.cs" />
@@ -112,8 +114,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlatoTraducido.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\Idioma.cs" />
+    <Compile Include="Models\Empresa.cs" />
+    <Compile Include="Models\Alergeno.cs" />
     <Compile Include="Models\LoginRequest.cs" />
+    <Compile Include="Models\Familia.cs" />
+    <Compile Include="Models\Establecimiento.cs" />
+    <Compile Include="Models\Descuento.cs" />
+    <Compile Include="Models\Ingrediente.cs" />
+    <Compile Include="Models\Maridaje.cs" />
+    <Compile Include="Models\Traduccion.cs" />
+    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Plato.cs" />
     <Compile Include="Models\Producto.cs" />
+    <Compile Include="Persistencia\ConexionBD.cs" />
+    <Compile Include="Persistencia\FamiliaPersistente.cs" />
+    <Compile Include="Persistencia\PlatoPersistente.cs" />
     <Compile Include="ProductoPersistente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
