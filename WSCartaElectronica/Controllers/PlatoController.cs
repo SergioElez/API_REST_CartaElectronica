@@ -112,14 +112,22 @@ namespace WSCartaElectronica.Controllers
         }
 
 
-        //Buscar por tag
+        //Buscar por tag y familia
         [HttpGet]
-        [Route("api/{idioma}/Plato/tag/{tag}")]
-        public ArrayList BuscarPorTag(int idioma, string tag)
+        [Route("api/{idioma}/Plato/tag/{tag}/familia/{familia}")]
+        public ArrayList BuscarPorTag(int idioma, string tag, int familia)
         {
             PlatoPersistente pp = new PlatoPersistente();
-            return pp.BuscarPlatosPorTag(idioma, tag);
+            return pp.BuscarPlatosPorTagYFamilia(idioma, tag, familia);
         }
 
+        //Buscar por tag, familia y nombre
+        [HttpGet]
+        [Route("api/{idioma}/Plato/tag/{tag}/familia/{familia}/busqueda/{busqueda}")]
+        public ArrayList BuscarPlatosPorTagFamiliaYNombre(int idioma, string tag, int familia, string busqueda)
+        {
+            PlatoPersistente pp = new PlatoPersistente();
+            return pp.BuscarPlatosPorTagFamiliaYNombre(idioma, tag, familia, busqueda);
+        }
     }
 }

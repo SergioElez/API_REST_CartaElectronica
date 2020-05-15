@@ -254,13 +254,13 @@ namespace WSCartaElectronica
             return arrayPlatos;
         }
 
-        public ArrayList BuscarPlatosPorTag(int idioma, string tag)
+        public ArrayList BuscarPlatosPorTagYFamilia(int idioma, string tag, int familia)
         {
             ArrayList arrayPlatos = new ArrayList();
 
             MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
 
-            String sqlString = "CALL Select_all_plato_tag(" + idioma + ", '" + tag + "');";
+            String sqlString = "CALL Select_all_plato_tag_familia(" + idioma + ", '" + tag + "', " + familia + ");";
 
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
@@ -276,7 +276,37 @@ namespace WSCartaElectronica
                 p.descripcion = "";
                 p.imagen = mySQLReader.GetString(2);
                 p.precio = mySQLReader.GetDouble(3);
-                p.id_familia = 0;
+                p.id_familia = familia;
+
+                arrayPlatos.Add(p);
+            }
+
+            return arrayPlatos;
+        }
+
+        public ArrayList BuscarPlatosPorTagFamiliaYNombre(int idioma, string tag, int familia, string busqueda)
+        {
+            ArrayList arrayPlatos = new ArrayList();
+
+            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
+
+            String sqlString = "CALL Select_all_plato_tag_familia_nombre(" + idioma + ", '" + tag + "', " + familia + ", '%" + busqueda+ "%');";
+
+
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+
+            mySQLReader = cmd.ExecuteReader();
+            while (mySQLReader.Read())
+            {
+
+                Plato p = new Plato();
+
+                p.id = mySQLReader.GetInt32(0);
+                p.nombre = mySQLReader.GetString(1);
+                p.descripcion = "";
+                p.imagen = mySQLReader.GetString(2);
+                p.precio = mySQLReader.GetDouble(3);
+                p.id_familia = familia;
 
                 arrayPlatos.Add(p);
             }
