@@ -39,9 +39,8 @@ namespace WSCartaElectronica
             Tag p = new Tag();
 
             p.id = mySQLReader.GetInt32(0);
-            p.nombre_ES = mySQLReader.GetString(1);
-            p.nombre_EN = mySQLReader.GetString(2);
-            p.color = mySQLReader.GetString(3);
+            p.nombre= mySQLReader.GetString(1);
+            p.color = mySQLReader.GetString(2);
 
             return p;
         }
@@ -73,13 +72,13 @@ namespace WSCartaElectronica
             }
         }
         
-        public ArrayList ObtenerTags(int idioma)
+        public ArrayList ObtenerTagsDeUnPlato(int idioma, int plato)
         {
             ArrayList arrayTags = new ArrayList();
 
             MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
 
-            String sqlString = "CALL Select_all_Tag(" + idioma.ToString() + ");";
+            String sqlString = "CALL Select_all_tag_plato(" + idioma.ToString() + ", " + plato + ");";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
             mySQLReader = cmd.ExecuteReader();
@@ -189,73 +188,6 @@ namespace WSCartaElectronica
         //    }
         //}
 
-
-        //// ------ METODOS EXTRA ----- \\
-
-        public ArrayList BuscarTagPorEstablecimiento(int idioma, int establecimiento)
-        {
-            ArrayList arrayTags = new ArrayList();
-
-            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
-
-            String sqlString = "CALL Select_all_Tag_establecimiento(" + idioma + ", " + establecimiento + ");";
-            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
-            {
-                //EDITADO
-                Tag p = LeerTag(mySQLReader);
-
-                arrayTags.Add(p);
-            }
-            return arrayTags;
-
-        }
-
-        public ArrayList BuscarTagsPorNombre(int idioma, int establecimiento, string busqueda)
-        {
-            ArrayList arrayTags = new ArrayList();
-
-            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
-
-            String sqlString = "CALL Select_all_Tag_establecimiento_nombre(" + idioma + ", " + establecimiento + ", '%" + busqueda + "%');";
-            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
-            {
-
-                //EDITADO
-                Tag p = LeerTag(mySQLReader);
-
-                arrayTags.Add(p);
-            }
-
-            return arrayTags;
-        }
-
-        //public ArrayList BuscarTagsPorTag(string tag)
-        //{
-        //    ArrayList arrayTags = new ArrayList();
-
-        //    MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
-
-        //    //String sqlString = "SELECT Trad.texto, Traduccion Trad WHERE Trad.id_tipo == 'Tag' AND Trad.idioma == 1";
-        //    String sqlString = "SELECT P.id, Trad.texto P.imagen, P.precio, P.descripcion, P.id_Tag, Traduccion Trad, Tag P WHERE Trad.id_tipo == 'Tag' AND Trad.idioma == 1";
-        //    //String sqlString = "SELECT * FROM Tag P, tag T, traduccion Trad WHERE Trad.id_tipo == 'Tag' AND Trad.idioma == 1 AND nombre LIKE '%" + tag + "%'";
-        //    MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //    mySQLReader = cmd.ExecuteReader();
-        //    while (mySQLReader.Read())
-        //    {
-        //        Tag p = LeerTag(mySQLReader);
-
-        //        arrayTags.Add(p);
-        //    }
-
-        //    return arrayTags;
-        //}
 
     }
 }
