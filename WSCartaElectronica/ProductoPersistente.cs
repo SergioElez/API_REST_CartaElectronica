@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using WSCartaElectronica.Models;
 using System.Collections;
-
-
+using System.Drawing;
+using System.IO;
 
 namespace WSCartaElectronica
 {
@@ -44,8 +44,13 @@ namespace WSCartaElectronica
             p.grupo = mySQLReader.GetString(2);
             p.especificaciones = mySQLReader.GetString(3);
             p.precio = mySQLReader.GetDouble(4);
+            p.imagen = mySQLReader.GetString(5);
+
+
+
             return p;
         }
+
 
 
         public Producto ObtenerProducto(int id)
@@ -90,6 +95,7 @@ namespace WSCartaElectronica
 
                 arrayProductos.Add(p);
             }
+                
 
             return arrayProductos;
         }

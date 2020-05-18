@@ -106,6 +106,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\FamiliaController.cs" />
+    <Compile Include="Controllers\IngredienteController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\PlatoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Models\Plato.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Persistencia\ConexionBD.cs" />
+    <Compile Include="Persistencia\IngredientePersistente.cs" />
     <Compile Include="Persistencia\UsuarioPersistente.cs" />
     <Compile Include="Persistencia\TagPersistente.cs" />
     <Compile Include="Persistencia\FamiliaPersistente.cs" />

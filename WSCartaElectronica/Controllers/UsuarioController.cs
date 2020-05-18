@@ -94,13 +94,23 @@ namespace WSCartaElectronica.Controllers
 
         // ------ RUTAS PERSONALIZADAS ----- \\
 
-        // OBTENER UsuarioS DE UN ESTABLECIMIENTO
+        // OBTENER USUARIO DE UNA EMPRESA
         [HttpGet]
         [Route("api/empresa/{empresa}/correo/{correo}")]
         public ArrayList BuscarUsuariosPorEmpresaYCorreo(int empresa, string correo)
         {
             UsuarioPersistente pp = new UsuarioPersistente();
             return pp.BuscarUsuariosPorEmpresaYCorreo(empresa, correo);
+        }
+
+
+        // Obtener Usuario Por Correo
+        [HttpGet]
+        [Route("api/empresa/usuario/correo/{correo}")]
+        public Usuario ObtenerUsuarioPorCorreo(string correo)
+        {
+            UsuarioPersistente pp = new UsuarioPersistente();
+            return pp.ObtenerUsuarioPorCorreo(correo);
         }
 
 
@@ -111,6 +121,15 @@ namespace WSCartaElectronica.Controllers
         {
             UsuarioPersistente pp = new UsuarioPersistente();
             return pp.IniciarSesion(correo, contrasena);
+        }
+
+        // Comprobar Correo
+        [HttpGet]
+        [Route("api/empresa/correo/{correo}")]
+        public bool ComprobarCorreo(string correo)
+        {
+            UsuarioPersistente pp = new UsuarioPersistente();
+            return pp.ComprobarCorreo(correo);
         }
 
     }

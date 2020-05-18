@@ -9,8 +9,8 @@ namespace WSCartaElectronica.Models
     {
         public long id { get; set; }
         public String nombre { get; set; }
-        public String tipo{ get; set; }
         public String descripcion{ get; set; }
+        public String tipo{ get; set; }
         public String mapa{ get; set; }
         public long id_empresa{ get; set; }
 

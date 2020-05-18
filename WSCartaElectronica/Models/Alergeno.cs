@@ -7,7 +7,8 @@ namespace WSCartaElectronica.Models
 {
     public class Alergeno
     {
-        public long id { get; set; }
+        public int id { get; set; }
+        public int id_ingrediente{ get; set; }
         public String nombre { get; set; }
 
     }

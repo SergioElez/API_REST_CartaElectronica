@@ -24,7 +24,7 @@ namespace WSCartaElectronica.Controllers
             return pp.ObtenerPlatos(idioma);
 
         }
-
+        
 
         // GET: api/Plato/5
         [HttpGet]
@@ -129,5 +129,16 @@ namespace WSCartaElectronica.Controllers
             PlatoPersistente pp = new PlatoPersistente();
             return pp.BuscarPlatosPorTagFamiliaYNombre(idioma, tag, familia, busqueda);
         }
+
+
+        // OBTENER ALERGENOS E INGREDIENTES DE UN PLATO
+        [HttpGet]
+        [Route("api/{idioma}/alergeno/plato/{plato}")]
+        public ArrayList ObtenerAlergenosPorPlato(int idioma, int plato)
+        {
+            PlatoPersistente pp = new PlatoPersistente();
+            return pp.ObtenerAlergenosPorPlato(idioma, plato);
+        }
+
     }
 }

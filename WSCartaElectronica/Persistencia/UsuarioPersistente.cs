@@ -245,5 +245,58 @@ namespace WSCartaElectronica
             }
         }
 
+        public bool ComprobarCorreo(string _correo)
+        {
+            string correo = "";
+
+            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
+
+            String sqlString = "Select correo from usuario where correo = '" + _correo + "';";
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+
+            mySQLReader = cmd.ExecuteReader();
+            while (mySQLReader.Read())
+            {
+                correo = mySQLReader.GetString(0);
+            }
+
+            if (correo == _correo)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Usuario ObtenerUsuarioPorCorreo(string _correo)
+        {
+
+            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
+
+            String sqlString = "Select id, nombre, correo, contraseña, imagen, puntos, id_empresa from usuario where correo = '" + _correo + "';";
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+
+            try
+            {
+                mySQLReader = cmd.ExecuteReader();
+                if (mySQLReader.Read())
+                {
+                    return LeerUsuario(mySQLReader);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+
+        }
+
     }
 }

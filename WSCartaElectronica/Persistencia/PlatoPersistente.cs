@@ -4,8 +4,9 @@ using System.Linq;
 using System.Web;
 using WSCartaElectronica.Models;
 using System.Collections;
-
-
+using System.Data;
+using System.Data.Odbc;
+using System.Drawing;
 
 namespace WSCartaElectronica
 {
@@ -86,6 +87,9 @@ namespace WSCartaElectronica
             mySQLReader = cmd.ExecuteReader();
             while (mySQLReader.Read())
             {
+
+
+
                 Plato p = new Plato();
 
                 p.id = mySQLReader.GetInt32(0);
@@ -97,10 +101,12 @@ namespace WSCartaElectronica
 
                 arrayPlatos.Add(p);
             }
+            Image.FromFile("C/Users/Sergio/Desktop/ui_inventory.png");
 
             return arrayPlatos;
         }
-        
+
+
 
         public long GuardarPlato(PlatoTraducido plato)
         {
@@ -312,6 +318,34 @@ namespace WSCartaElectronica
             }
 
             return arrayPlatos;
+        }
+
+
+        public ArrayList ObtenerAlergenosPorPlato(int idioma, int plato)
+        {
+            ArrayList arrayAlergenos = new ArrayList();
+
+            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
+
+            String sqlString = "CALL Select_all_alergeno_ingrediente_plato(" + idioma + ", " + plato + ");";
+
+
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+
+            mySQLReader = cmd.ExecuteReader();
+            while (mySQLReader.Read())
+            {
+
+                Alergeno p = new Alergeno();
+
+                p.id = mySQLReader.GetInt32(0);
+                p.id_ingrediente = mySQLReader.GetInt32(1);
+                p.nombre = mySQLReader.GetString(2);
+
+                arrayAlergenos.Add(p);
+            }
+
+            return arrayAlergenos;
         }
 
     }

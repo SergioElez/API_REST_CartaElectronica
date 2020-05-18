@@ -7,7 +7,7 @@ namespace WSCartaElectronica.Models
 {
     public class Ingrediente
     {
-        public long id { get; set; }
+        public int id { get; set; }
         public String nombre { get; set; }
 
     }
