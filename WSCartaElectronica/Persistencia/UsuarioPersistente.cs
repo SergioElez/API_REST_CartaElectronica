@@ -124,72 +124,6 @@ namespace WSCartaElectronica
             return id;
         }
 
-        //public bool ActualizarUsuario(int idioma, UsuarioTraducido Usuario)
-        //{
-        //    MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
-
-
-        //    String sqlString = "CALL Select_all_Usuario(" + idioma + ");";
-
-
-        //    MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //    mySQLReader = cmd.ExecuteReader();
-        //    if (mySQLReader.Read())
-        //    {
-        //        mySQLReader.Close();
-
-        //         sqlString = "CALL Actualizar_Usuario(" +
-        //            Usuario.id+ ", '" +
-        //            Usuario.nombre_ES + "', '" +
-        //            Usuario.descripcion_ES + "', '" +
-        //            Usuario.nombre_EN + "', '" +
-        //            Usuario.descripcion_EN + "', '" +
-        //            Usuario.imagen + "', " +
-        //            Usuario.precio.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ", " +
-        //            Usuario.id_Usuario.ToString() + ");";
-
-
-
-        //        cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //        cmd.ExecuteNonQuery();
-
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //// DE MOMENTO NO VAMOS A BORRAR NADA EN LA BD, LO DE ABAJO NO FUNCIONA
-        //public bool BorrarUsuario(int id)
-        //{
-        //    MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
-
-        //    String sqlString = "SELECT * FROM Usuario WHERE codigo = " + id.ToString();
-
-        //    MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //    mySQLReader = cmd.ExecuteReader();
-        //    if (mySQLReader.Read())
-        //    {
-        //        mySQLReader.Close();
-
-        //        sqlString = "DELETE FROM Usuario WHERE codigo = " + id.ToString();
-        //        cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //        cmd.ExecuteNonQuery();
-
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
 
         //// ------ METODOS EXTRA ----- \\
 
@@ -270,6 +204,7 @@ namespace WSCartaElectronica
             }
         }
 
+
         public Usuario ObtenerUsuarioPorCorreo(string _correo)
         {
 
@@ -294,8 +229,33 @@ namespace WSCartaElectronica
             {
                 return null;
             }
+        }
 
 
+        public bool ActivarMoneda(int id_usuario)
+        {
+
+            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
+
+            String sqlString = "CALL Activar_moneda(" + id_usuario + ");";
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+
+            try
+            {
+                mySQLReader = cmd.ExecuteReader();
+                if (mySQLReader.Read())
+                {
+                    return mySQLReader.GetBoolean(0);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
     }

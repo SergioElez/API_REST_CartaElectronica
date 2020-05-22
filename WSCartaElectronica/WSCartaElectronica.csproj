@@ -107,6 +107,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\FamiliaController.cs" />
     <Compile Include="Controllers\IngredienteController.cs" />
+    <Compile Include="Controllers\EstablecimientoController.cs" />
+    <Compile Include="Controllers\DescuentoController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\PlatoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
@@ -125,7 +127,7 @@
     <Compile Include="Models\LoginRequest.cs" />
     <Compile Include="Models\Familia.cs" />
     <Compile Include="Models\Establecimiento.cs" />
-    <Compile Include="Models\Descuento.cs" />
+    <Compile Include="Models\Descuento_Plato.cs" />
     <Compile Include="Models\Ingrediente.cs" />
     <Compile Include="Models\Maridaje.cs" />
     <Compile Include="Models\Traduccion.cs" />
@@ -134,6 +136,8 @@
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Persistencia\ConexionBD.cs" />
     <Compile Include="Persistencia\IngredientePersistente.cs" />
+    <Compile Include="Persistencia\EstablecimientoPersistente.cs" />
+    <Compile Include="Persistencia\DescuentoPersistente.cs" />
     <Compile Include="Persistencia\UsuarioPersistente.cs" />
     <Compile Include="Persistencia\TagPersistente.cs" />
     <Compile Include="Persistencia\FamiliaPersistente.cs" />

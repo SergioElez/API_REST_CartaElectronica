@@ -84,24 +84,33 @@ namespace WSCartaElectronica
             String sqlString = "CALL Select_all_plato(" + idioma.ToString() + ");";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+
+            try
             {
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
 
 
 
-                Plato p = new Plato();
+                    Plato p = new Plato();
 
-                p.id = mySQLReader.GetInt32(0);
-                p.nombre = mySQLReader.GetString(1);
-                p.descripcion = "";
-                p.imagen = mySQLReader.GetString(2);
-                p.precio = mySQLReader.GetDouble(3);
-                p.id_familia = mySQLReader.GetInt32(4);
+                    p.id = mySQLReader.GetInt32(0);
+                    p.nombre = mySQLReader.GetString(1);
+                    p.descripcion = "";
+                    p.imagen = mySQLReader.GetString(2);
+                    p.precio = mySQLReader.GetDouble(3);
+                    p.id_familia = mySQLReader.GetInt32(4);
 
-                arrayPlatos.Add(p);
+                    arrayPlatos.Add(p);
+                }
             }
-            Image.FromFile("C/Users/Sergio/Desktop/ui_inventory.png");
+            catch (Exception)
+            {
+                Console.WriteLine("Error al hacer la consulta");
+            }
+
+            
 
             return arrayPlatos;
         }
@@ -146,33 +155,44 @@ namespace WSCartaElectronica
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            if (mySQLReader.Read())
+
+            try
             {
-                mySQLReader.Close();
+                mySQLReader = cmd.ExecuteReader();
+                if (mySQLReader.Read())
+                {
+                    mySQLReader.Close();
 
-                 sqlString = "CALL Actualizar_plato(" +
-                    plato.id+ ", '" +
-                    plato.nombre_ES + "', '" +
-                    plato.descripcion_ES + "', '" +
-                    plato.nombre_EN + "', '" +
-                    plato.descripcion_EN + "', '" +
-                    plato.imagen + "', " +
-                    plato.precio.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ", " +
-                    plato.id_familia.ToString() + ");";
+                    sqlString = "CALL Actualizar_plato(" +
+                       plato.id + ", '" +
+                       plato.nombre_ES + "', '" +
+                       plato.descripcion_ES + "', '" +
+                       plato.nombre_EN + "', '" +
+                       plato.descripcion_EN + "', '" +
+                       plato.imagen + "', " +
+                       plato.precio.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ", " +
+                       plato.id_familia.ToString() + ");";
 
 
 
-                cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+                    cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception)
             {
+                Console.WriteLine("Error al hacer la consulta");
                 return false;
             }
+
+
         }
 
         // DE MOMENTO NO VAMOS A BORRAR NADA EN LA BD, LO DE ABAJO NO FUNCIONA
@@ -184,22 +204,33 @@ namespace WSCartaElectronica
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            if (mySQLReader.Read())
+
+            try
             {
-                mySQLReader.Close();
+                mySQLReader = cmd.ExecuteReader();
+                if (mySQLReader.Read())
+                {
+                    mySQLReader.Close();
 
-                sqlString = "DELETE FROM Plato WHERE codigo = " + id.ToString();
-                cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+                    sqlString = "DELETE FROM Plato WHERE codigo = " + id.ToString();
+                    cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-                cmd.ExecuteNonQuery();
-                
-                return true;
+                    cmd.ExecuteNonQuery();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception)
             {
+                Console.WriteLine("Error al hacer la consulta");
                 return false;
             }
+
+
         }
 
 
@@ -214,22 +245,32 @@ namespace WSCartaElectronica
             String sqlString = "CALL Select_all_plato_familia(" + idioma + ", " + familia + ");";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+
+            try
             {
-                Plato p = new Plato();
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
+                    Plato p = new Plato();
 
-                p.id = mySQLReader.GetInt32(0);
-                p.nombre = mySQLReader.GetString(1);
-                p.descripcion = "";
-                p.imagen = mySQLReader.GetString(2);
-                p.precio = mySQLReader.GetDouble(3);
-                p.id_familia = familia;
+                    p.id = mySQLReader.GetInt32(0);
+                    p.nombre = mySQLReader.GetString(1);
+                    p.descripcion = "";
+                    p.imagen = mySQLReader.GetString(2);
+                    p.precio = mySQLReader.GetDouble(3);
+                    p.id_familia = familia;
 
-                arrayPlatos.Add(p);
+                    arrayPlatos.Add(p);
+                }
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error al hacer la consulta");
             }
 
-            return arrayPlatos;
+             return arrayPlatos;
+
         }
 
 
@@ -242,20 +283,30 @@ namespace WSCartaElectronica
             String sqlString = "CALL Select_all_plato_familia_nombre(" + idioma + ", " + familia + ", '%" + busqueda + "%');";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+
+            try
             {
-                Plato p = new Plato();
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
+                    Plato p = new Plato();
 
-                p.id = mySQLReader.GetInt32(0);
-                p.nombre = mySQLReader.GetString(1);
-                p.descripcion = "";
-                p.imagen = mySQLReader.GetString(2);
-                p.precio = mySQLReader.GetDouble(3);
-                p.id_familia = familia;
+                    p.id = mySQLReader.GetInt32(0);
+                    p.nombre = mySQLReader.GetString(1);
+                    p.descripcion = "";
+                    p.imagen = mySQLReader.GetString(2);
+                    p.precio = mySQLReader.GetDouble(3);
+                    p.id_familia = familia;
 
-                arrayPlatos.Add(p);
+                    arrayPlatos.Add(p);
+                }
             }
+            catch (Exception)
+            {
+                Console.WriteLine("Error al hacer la consulta");
+            }
+
+            
 
             return arrayPlatos;
         }
@@ -271,21 +322,31 @@ namespace WSCartaElectronica
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+
+            try
             {
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
 
-                Plato p = new Plato();
+                    Plato p = new Plato();
 
-                p.id = mySQLReader.GetInt32(0);
-                p.nombre = mySQLReader.GetString(1);
-                p.descripcion = "";
-                p.imagen = mySQLReader.GetString(2);
-                p.precio = mySQLReader.GetDouble(3);
-                p.id_familia = familia;
+                    p.id = mySQLReader.GetInt32(0);
+                    p.nombre = mySQLReader.GetString(1);
+                    p.descripcion = "";
+                    p.imagen = mySQLReader.GetString(2);
+                    p.precio = mySQLReader.GetDouble(3);
+                    p.id_familia = familia;
 
-                arrayPlatos.Add(p);
+                    arrayPlatos.Add(p);
+                }
             }
+            catch (Exception)
+            {
+                Console.WriteLine("Error al hacer la consulta");
+            }
+
+            
 
             return arrayPlatos;
         }
@@ -301,21 +362,31 @@ namespace WSCartaElectronica
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+
+            try
             {
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
 
-                Plato p = new Plato();
+                    Plato p = new Plato();
 
-                p.id = mySQLReader.GetInt32(0);
-                p.nombre = mySQLReader.GetString(1);
-                p.descripcion = "";
-                p.imagen = mySQLReader.GetString(2);
-                p.precio = mySQLReader.GetDouble(3);
-                p.id_familia = familia;
+                    p.id = mySQLReader.GetInt32(0);
+                    p.nombre = mySQLReader.GetString(1);
+                    p.descripcion = "";
+                    p.imagen = mySQLReader.GetString(2);
+                    p.precio = mySQLReader.GetDouble(3);
+                    p.id_familia = familia;
 
-                arrayPlatos.Add(p);
+                    arrayPlatos.Add(p);
+                }
             }
+            catch (Exception)
+            {
+                Console.WriteLine("Error al hacer la consulta");
+            }
+
+            
 
             return arrayPlatos;
         }
@@ -332,21 +403,67 @@ namespace WSCartaElectronica
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+            try
             {
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
 
-                Alergeno p = new Alergeno();
+                    Alergeno p = new Alergeno();
 
-                p.id = mySQLReader.GetInt32(0);
-                p.id_ingrediente = mySQLReader.GetInt32(1);
-                p.nombre = mySQLReader.GetString(2);
+                    p.id = mySQLReader.GetInt32(0);
+                    p.id_ingrediente = mySQLReader.GetInt32(1);
+                    p.nombre = mySQLReader.GetString(2);
 
-                arrayAlergenos.Add(p);
+                    arrayAlergenos.Add(p);
+                }
+
             }
-
+            catch (Exception)
+            {
+                Console.WriteLine("Error al hacer la consulta");
+            }
+            
             return arrayAlergenos;
         }
+
+        public Maridaje ObtenerPlatoMaridaje(int idioma, int plato)
+        {
+            Maridaje maridaje = new Maridaje();
+
+            MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
+
+            String sqlString = "CALL Select_all_maridaje_plato(" + idioma + ", " + plato + ");";
+
+
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
+
+
+            try
+            {
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
+
+                    maridaje.id = -1;
+                    maridaje.id_plato = plato;
+                    maridaje.id_plato_recomendado = mySQLReader.GetInt32(0);
+                    maridaje.descripcion = mySQLReader.GetString(1);
+
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error al hacer la consulta");
+            }
+
+            Console.WriteLine(maridaje.descripcion);
+
+            return maridaje;
+        }
+
+
+
 
     }
 }

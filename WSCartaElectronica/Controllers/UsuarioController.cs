@@ -49,50 +49,8 @@ namespace WSCartaElectronica.Controllers
         }
 
 
-
-
-        //// PUT: api/Usuario/5
-        //public HttpResponseMessage Put([FromBody]UsuarioTraducido value)
-        //{
-        //    UsuarioPersistente pp = new UsuarioPersistente();
-        //    bool existe = pp.ActualizarUsuario(1, value);
-
-        //    HttpResponseMessage respuesta;
-
-        //    if (existe)
-        //    {
-        //        respuesta = Request.CreateResponse(HttpStatusCode.OK);
-        //    }
-        //    else
-        //    {
-        //        respuesta = Request.CreateResponse(HttpStatusCode.NotFound);
-        //    }
-
-        //    return respuesta;
-        //}
-
-        //// DELETE: api/Usuario/5
-        //public HttpResponseMessage Delete(int id)
-        //{
-        //    UsuarioPersistente pp = new UsuarioPersistente();
-
-        //    bool existe = pp.BorrarUsuario(id);
-
-        //    HttpResponseMessage respuesta;
-
-        //    if (existe)
-        //    {
-        //        respuesta = Request.CreateResponse(HttpStatusCode.OK);
-        //    }
-        //    else
-        //    {
-        //        respuesta = Request.CreateResponse(HttpStatusCode.NotFound);
-        //    }
-
-        //    return respuesta;
-        //}
-
         // ------ RUTAS PERSONALIZADAS ----- \\
+
 
         // OBTENER USUARIO DE UNA EMPRESA
         [HttpGet]
@@ -130,6 +88,15 @@ namespace WSCartaElectronica.Controllers
         {
             UsuarioPersistente pp = new UsuarioPersistente();
             return pp.ComprobarCorreo(correo);
+        }
+
+        // Activar moneda
+        [HttpGet]
+        [Route("api/empresa/moneda/usuario/{usuario}")]
+        public bool ActivarMoneda(int usuario)
+        {
+            UsuarioPersistente pp = new UsuarioPersistente();
+            return pp.ActivarMoneda(usuario);
         }
 
     }
