@@ -24,7 +24,7 @@ namespace WSCartaElectronica.Controllers
             return pp.ObtenerPlatos(idioma);
 
         }
-        
+
 
         // GET: api/Plato/5
         [HttpGet]

@@ -57,7 +57,6 @@ namespace WSCartaElectronica
             String sqlString = "CALL Select_all_usuario_empresa_id(" + empresa + ", " + id + ");";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            //Si hay un error al hacer la consulta que devuelva null
             try
             {
                 mySQLReader = cmd.ExecuteReader();
@@ -67,13 +66,16 @@ namespace WSCartaElectronica
                 }
                 else
                 {
+                    conexion.Close();
                     return null;
                 }
             }
             catch(Exception e)
             {
+                conexion.Close();
                 return null;
             }
+            
         }
         
         public ArrayList ObtenerUsuarios(int empresa)
@@ -85,15 +87,32 @@ namespace WSCartaElectronica
             String sqlString = "CALL Select_all_usuario_empresa(" + empresa + ");";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+
+
+            try
             {
-                Usuario p = LeerUsuario(mySQLReader);
+                mySQLReader = cmd.ExecuteReader();
+                if (mySQLReader.Read())
+                {
+                    Usuario p = LeerUsuario(mySQLReader);
 
-                arrayUsuarios.Add(p);
+                    arrayUsuarios.Add(p);
+                }
+                else
+                {
+                    conexion.Close();
+                    return null;
+                }
             }
-
+            catch (Exception e)
+            {
+                conexion.Close();
+                return null;
+            }
+            
+            
             return arrayUsuarios;
+
         }
 
 

@@ -81,14 +81,28 @@ namespace WSCartaElectronica
             String sqlString = "CALL Select_all_tag_plato(" + idioma.ToString() + ", " + plato + ");";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+            
+            try
             {
-                //EDITADO
-                Tag p = LeerTag(mySQLReader);
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
+                    Tag p = LeerTag(mySQLReader);
 
-                arrayTags.Add(p);
+                    arrayTags.Add(p);
+                }
             }
+            catch (MySql.Data.MySqlClient.MySqlException e)
+            {
+                Console.WriteLine("Error al conectarse a la base de datos " + e);
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+
+
 
             return arrayTags;
         }

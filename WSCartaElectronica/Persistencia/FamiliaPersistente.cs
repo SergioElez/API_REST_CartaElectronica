@@ -18,7 +18,6 @@ namespace WSCartaElectronica
         // ------ METODOS PARA CRUD ------ \\
 
 
-
         public FamiliaPersistente()
         {
             string cadenaConexion = ConexionBD.cadenaConexion;
@@ -31,6 +30,7 @@ namespace WSCartaElectronica
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
+                conexion.Close();
                 Console.WriteLine("Error al conectarse a la base de datos " + e);
             }
         }
@@ -68,7 +68,12 @@ namespace WSCartaElectronica
             }
             catch(Exception e)
             {
+                conexion.Close();
                 return null;
+            }
+            finally
+            {
+                conexion.Close();
             }
         }
         
@@ -81,115 +86,34 @@ namespace WSCartaElectronica
             String sqlString = "CALL Select_all_Familia(" + idioma.ToString() + ");";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+
+            try
             {
-                Familia p = new Familia();
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
+                    Familia p = new Familia();
 
-                p.id = mySQLReader.GetInt32(0);
-                p.nombre = mySQLReader.GetString(1);
-                p.imagen = mySQLReader.GetString(2);
+                    p.id = mySQLReader.GetInt32(0);
+                    p.nombre = mySQLReader.GetString(1);
+                    p.imagen = mySQLReader.GetString(2);
 
-                arrayFamilias.Add(p);
+                    arrayFamilias.Add(p);
+                }
             }
+            catch (Exception e)
+            {
+                conexion.Close();
+                return null;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
 
             return arrayFamilias;
         }
-
-
-        //public long GuardarFamilia(FamiliaTraducido Familia)
-        //{
-
-        //    String sqlString = "CALL Crear_Familia('" +
-        //        Familia.nombre_ES + "', '" +
-        //        Familia.descripcion_ES + "', '" +
-        //        Familia.nombre_EN + "', '" +
-        //        Familia.descripcion_EN + "', '" +
-        //        Familia.imagen + "', " +
-        //        Familia.precio.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ", "+
-        //        Familia.id_familia.ToString() + ");";
-
-        //    MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-        //    Console.WriteLine(sqlString);
-        //    try
-        //    {
-        //        cmd.ExecuteNonQuery();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        Console.WriteLine("Error al insertar Familia: " + cmd.LastInsertedId);
-        //    }
-
-
-        //    long id = cmd.LastInsertedId;
-        //    return id;
-        //}
-
-        //public bool ActualizarFamilia(int idioma, FamiliaTraducido Familia)
-        //{
-        //    MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
-
-
-        //    String sqlString = "CALL Select_all_Familia(" + idioma + ");";
-
-
-        //    MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //    mySQLReader = cmd.ExecuteReader();
-        //    if (mySQLReader.Read())
-        //    {
-        //        mySQLReader.Close();
-
-        //         sqlString = "CALL Actualizar_Familia(" +
-        //            Familia.id+ ", '" +
-        //            Familia.nombre_ES + "', '" +
-        //            Familia.descripcion_ES + "', '" +
-        //            Familia.nombre_EN + "', '" +
-        //            Familia.descripcion_EN + "', '" +
-        //            Familia.imagen + "', " +
-        //            Familia.precio.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ", " +
-        //            Familia.id_familia.ToString() + ");";
-
-
-
-        //        cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //        cmd.ExecuteNonQuery();
-
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //// DE MOMENTO NO VAMOS A BORRAR NADA EN LA BD, LO DE ABAJO NO FUNCIONA
-        //public bool BorrarFamilia(int id)
-        //{
-        //    MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
-
-        //    String sqlString = "SELECT * FROM Familia WHERE codigo = " + id.ToString();
-
-        //    MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //    mySQLReader = cmd.ExecuteReader();
-        //    if (mySQLReader.Read())
-        //    {
-        //        mySQLReader.Close();
-
-        //        sqlString = "DELETE FROM Familia WHERE codigo = " + id.ToString();
-        //        cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //        cmd.ExecuteNonQuery();
-
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
 
 
         //// ------ METODOS EXTRA ----- \\
@@ -203,17 +127,33 @@ namespace WSCartaElectronica
             String sqlString = "CALL Select_all_familia_establecimiento(" + idioma + ", " + establecimiento + ");";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+
+
+            try
             {
-                Familia p = new Familia();
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
+                    Familia p = new Familia();
 
-                p.id = mySQLReader.GetInt32(0);
-                p.nombre = mySQLReader.GetString(1);
-                p.imagen = mySQLReader.GetString(2);
+                    p.id = mySQLReader.GetInt32(0);
+                    p.nombre = mySQLReader.GetString(1);
+                    p.imagen = mySQLReader.GetString(2);
 
-                arrayFamilias.Add(p);
+                    arrayFamilias.Add(p);
+                }
             }
+            catch (Exception e)
+            {
+                conexion.Close();
+                return null;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+
             return arrayFamilias;
 
         }
@@ -227,42 +167,34 @@ namespace WSCartaElectronica
             String sqlString = "CALL Select_all_familia_establecimiento_nombre(" + idioma + ", " + establecimiento + ", '%" + busqueda + "%');";
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
 
-            mySQLReader = cmd.ExecuteReader();
-            while (mySQLReader.Read())
+
+            try
             {
-                Familia p = new Familia();
+                mySQLReader = cmd.ExecuteReader();
+                while (mySQLReader.Read())
+                {
+                    Familia p = new Familia();
 
-                p.id = mySQLReader.GetInt32(0);
-                p.nombre = mySQLReader.GetString(1);
-                p.imagen = mySQLReader.GetString(2);
+                    p.id = mySQLReader.GetInt32(0);
+                    p.nombre = mySQLReader.GetString(1);
+                    p.imagen = mySQLReader.GetString(2);
 
-                arrayFamilias.Add(p);
+                    arrayFamilias.Add(p);
+                }
             }
+            catch (Exception e)
+            {
+                conexion.Close();
+                return null;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
 
             return arrayFamilias;
         }
-
-        //public ArrayList BuscarFamiliasPorTag(string tag)
-        //{
-        //    ArrayList arrayFamilias = new ArrayList();
-
-        //    MySql.Data.MySqlClient.MySqlDataReader mySQLReader;
-
-        //    //String sqlString = "SELECT Trad.texto, Traduccion Trad WHERE Trad.id_tipo == 'Familia' AND Trad.idioma == 1";
-        //    String sqlString = "SELECT P.id, Trad.texto P.imagen, P.precio, P.descripcion, P.id_familia, Traduccion Trad, Familia P WHERE Trad.id_tipo == 'Familia' AND Trad.idioma == 1";
-        //    //String sqlString = "SELECT * FROM Familia P, tag T, traduccion Trad WHERE Trad.id_tipo == 'Familia' AND Trad.idioma == 1 AND nombre LIKE '%" + tag + "%'";
-        //    MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlString, conexion);
-
-        //    mySQLReader = cmd.ExecuteReader();
-        //    while (mySQLReader.Read())
-        //    {
-        //        Familia p = LeerFamilia(mySQLReader);
-
-        //        arrayFamilias.Add(p);
-        //    }
-
-        //    return arrayFamilias;
-        //}
 
     }
 }

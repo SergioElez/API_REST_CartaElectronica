@@ -45,6 +45,7 @@ namespace WSCartaElectronica
             p.imagen = mySQLReader.GetString(3);
             p.precio = mySQLReader.GetDouble(4);
             p.id_familia = mySQLReader.GetInt32(5);
+
             return p;
         }
 
@@ -63,16 +64,25 @@ namespace WSCartaElectronica
                 if (mySQLReader.Read())
                 {
                     return LeerPlato(mySQLReader);
+
                 }
                 else
                 {
+                    conexion.Close();
                     return null;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                conexion.Close();
                 return null;
             }
+            finally
+            {
+                conexion.Close();
+            }
+
+
         }
         
         public ArrayList ObtenerPlatos(int idioma)
@@ -90,9 +100,6 @@ namespace WSCartaElectronica
                 mySQLReader = cmd.ExecuteReader();
                 while (mySQLReader.Read())
                 {
-
-
-
                     Plato p = new Plato();
 
                     p.id = mySQLReader.GetInt32(0);
@@ -107,10 +114,13 @@ namespace WSCartaElectronica
             }
             catch (Exception)
             {
+                conexion.Close();
                 Console.WriteLine("Error al hacer la consulta");
             }
-
-            
+            finally
+            {
+                conexion.Close();
+            }
 
             return arrayPlatos;
         }
@@ -137,7 +147,12 @@ namespace WSCartaElectronica
             }
             catch (Exception)
             {
+                conexion.Close();
                 Console.WriteLine("Error al insertar Plato: " + cmd.LastInsertedId);
+            }
+            finally
+            {
+                conexion.Close();
             }
 
 
@@ -183,15 +198,20 @@ namespace WSCartaElectronica
                 }
                 else
                 {
+                    conexion.Close();
                     return false;
                 }
             }
             catch (Exception)
             {
                 Console.WriteLine("Error al hacer la consulta");
+                conexion.Close();
                 return false;
             }
-
+            finally
+            {
+                conexion.Close();
+            }
 
         }
 
@@ -221,15 +241,20 @@ namespace WSCartaElectronica
                 }
                 else
                 {
+                    conexion.Close();
                     return false;
                 }
             }
             catch (Exception)
             {
                 Console.WriteLine("Error al hacer la consulta");
+                conexion.Close();
                 return false;
             }
-
+            finally
+            {
+                conexion.Close();
+            }
 
         }
 
@@ -266,10 +291,14 @@ namespace WSCartaElectronica
             }
             catch (Exception)
             {
+                conexion.Close();
                 Console.WriteLine("Error al hacer la consulta");
             }
-
-             return arrayPlatos;
+            finally
+            {
+                conexion.Close();
+            }
+            return arrayPlatos;
 
         }
 
@@ -303,10 +332,14 @@ namespace WSCartaElectronica
             }
             catch (Exception)
             {
+                conexion.Close();
                 Console.WriteLine("Error al hacer la consulta");
             }
+            finally
+            {
+                conexion.Close();
+            }
 
-            
 
             return arrayPlatos;
         }
@@ -343,10 +376,14 @@ namespace WSCartaElectronica
             }
             catch (Exception)
             {
+                conexion.Close();
                 Console.WriteLine("Error al hacer la consulta");
             }
+            finally
+            {
+                conexion.Close();
+            }
 
-            
 
             return arrayPlatos;
         }
@@ -383,10 +420,14 @@ namespace WSCartaElectronica
             }
             catch (Exception)
             {
+                conexion.Close();
                 Console.WriteLine("Error al hacer la consulta");
             }
+            finally
+            {
+                conexion.Close();
+            }
 
-            
 
             return arrayPlatos;
         }
@@ -421,9 +462,13 @@ namespace WSCartaElectronica
             }
             catch (Exception)
             {
+                conexion.Close();
                 Console.WriteLine("Error al hacer la consulta");
             }
-            
+            finally
+            {
+                conexion.Close();
+            }
             return arrayAlergenos;
         }
 
@@ -455,10 +500,14 @@ namespace WSCartaElectronica
             catch (Exception)
             {
                 Console.WriteLine("Error al hacer la consulta");
+                conexion.Close();
+            }
+            finally
+            {
+                conexion.Close();
             }
 
-            Console.WriteLine(maridaje.descripcion);
-
+            
             return maridaje;
         }
 

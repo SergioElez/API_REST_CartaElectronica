@@ -100,10 +100,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images\Carta\Carne\chile-con-carne.jpg" />
+    <Content Include="Images\Carta\Carne\entrecot.jpg" />
+    <Content Include="Images\Carta\Carne\solomillo.jpg" />
+    <Content Include="Images\Carta\Pescado\emperador.jpg" />
+    <Content Include="Images\Carta\Pescado\merluza-a-la-plancha.jpg" />
+    <Content Include="Images\Carta\Varios\ensalada-romana.jpg" />
+    <Content Include="Images\Carta\Vinos\vino-43.jpg" />
+    <Content Include="Images\default.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\FamiliaController.cs" />
     <Compile Include="Controllers\IngredienteController.cs" />
