@@ -44,7 +44,8 @@ namespace WSCartaElectronica
             p.descripcion = mySQLReader.GetString(2);
             p.imagen = mySQLReader.GetString(3);
             p.precio = mySQLReader.GetDouble(4);
-            p.id_familia = mySQLReader.GetInt32(5);
+            p.nombre_familia = mySQLReader.GetString(5);
+            p.id_familia = mySQLReader.GetInt32(6);
 
             return p;
         }
@@ -107,7 +108,8 @@ namespace WSCartaElectronica
                     p.descripcion = "";
                     p.imagen = mySQLReader.GetString(2);
                     p.precio = mySQLReader.GetDouble(3);
-                    p.id_familia = mySQLReader.GetInt32(4);
+                    p.nombre_familia = mySQLReader.GetString(5);
+                    p.id_familia = mySQLReader.GetInt32(6);
 
                     arrayPlatos.Add(p);
                 }

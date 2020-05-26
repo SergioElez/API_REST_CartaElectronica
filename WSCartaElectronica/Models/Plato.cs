@@ -10,6 +10,7 @@ namespace WSCartaElectronica.Models
         public String descripcion { get; set; }
         public String imagen { get; set; }
         public Double precio { get; set; }
+        public String nombre_familia { get; set; }
         public long id_familia { get; set; }
 
     }

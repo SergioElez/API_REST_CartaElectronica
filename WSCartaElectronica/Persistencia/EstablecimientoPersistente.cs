@@ -44,7 +44,8 @@ namespace WSCartaElectronica
             p.descripcion = mySQLReader.GetString(2);
             p.tipo = mySQLReader.GetString(3);
             p.mapa = mySQLReader.GetString(4);
-            p.id_empresa = mySQLReader.GetInt32(5);
+            p.imagen = mySQLReader.GetString(5);
+            p.id_empresa = mySQLReader.GetInt32(6);
             return p;
         }
 

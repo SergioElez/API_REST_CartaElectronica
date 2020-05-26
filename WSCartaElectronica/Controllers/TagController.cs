@@ -36,62 +36,17 @@ namespace WSCartaElectronica.Controllers
             return Tag;
         }
 
-        /* DE MOMENTO NO VAMOS A UTILIZAR POST, PUT NI DELETE        
-
-        // POST: api/Tag
-        public HttpResponseMessage Post([FromBody]Tag tag)
+        // GET: api/Tag/5
+        [HttpGet]
+        [Route("api/{idioma}/{Tag}")]
+        public ArrayList Get(int idioma)
         {
             TagPersistente pp = new TagPersistente();
-            long codigo = pp.GuardarTag(tag);
-            HttpResponseMessage respuesta = Request.CreateResponse(HttpStatusCode.Created);
-            return respuesta;
+            ArrayList TagArrayList = pp.ObtenerTags(idioma);
+            return TagArrayList;
         }
 
 
 
-
-        // PUT: api/Tag/5
-        public HttpResponseMessage Put([FromBody]Tag value)
-        {
-            TagPersistente pp = new TagPersistente();
-            bool existe = pp.ActualizarTag(1, value);
-
-            HttpResponseMessage respuesta;
-            
-            if (existe)
-            {
-                respuesta = Request.CreateResponse(HttpStatusCode.OK);
-            }
-            else
-            {
-                respuesta = Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-
-            return respuesta;
-        }
-
-        //// DELETE: api/Tag/5
-        //public HttpResponseMessage Delete(int id)
-        //{
-        //    TagPersistente pp = new TagPersistente();
-
-        //    bool existe = pp.BorrarTag(id);
-
-        //    HttpResponseMessage respuesta;
-
-        //    if (existe)
-        //    {
-        //        respuesta = Request.CreateResponse(HttpStatusCode.OK);
-        //    }
-        //    else
-        //    {
-        //        respuesta = Request.CreateResponse(HttpStatusCode.NotFound);
-        //    }
-
-        //    return respuesta;
-        //}
-
-      */
-      
     }
 }

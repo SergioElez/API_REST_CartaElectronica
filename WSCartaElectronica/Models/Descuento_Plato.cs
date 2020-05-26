@@ -18,6 +18,7 @@ namespace WSCartaElectronica.Models
         public String nombre_plato { get; set; }
         public String imagen_plato { get; set; }
         public Double precio_plato { get; set; }
+        public String nombre_familia { get; set; }
         public long id_familia_plato { get; set; }
 
     }

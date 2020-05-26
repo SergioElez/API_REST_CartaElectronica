@@ -12,6 +12,7 @@ namespace WSCartaElectronica.Models
         public String descripcion{ get; set; }
         public String tipo{ get; set; }
         public String mapa{ get; set; }
+        public String imagen{ get; set; }
         public long id_empresa{ get; set; }
 
 

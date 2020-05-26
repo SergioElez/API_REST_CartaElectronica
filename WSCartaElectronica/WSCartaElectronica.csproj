@@ -100,14 +100,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Images\Carta\Carne\chile-con-carne.jpg" />
-    <Content Include="Images\Carta\Carne\entrecot.jpg" />
-    <Content Include="Images\Carta\Carne\solomillo.jpg" />
-    <Content Include="Images\Carta\Pescado\emperador.jpg" />
-    <Content Include="Images\Carta\Pescado\merluza-a-la-plancha.jpg" />
-    <Content Include="Images\Carta\Varios\ensalada-romana.jpg" />
-    <Content Include="Images\Carta\Vinos\vino-43.jpg" />
+    <Content Include="Images\Carta\1\chile-con-carne.jpg" />
+    <Content Include="Images\Carta\1\entrecot.jpg" />
+    <Content Include="Images\Carta\1\solomillo.jpg" />
+    <Content Include="Images\Carta\2\emperador.jpg" />
+    <Content Include="Images\Carta\2\merluza-a-la-plancha.jpg" />
+    <Content Include="Images\Carta\4\ensalada-romana.jpg" />
+    <Content Include="Images\Carta\5\vino-43.jpg" />
     <Content Include="Images\default.jpg" />
+    <Content Include="Images\Empresa\1\Establecimiento\canfali.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -120,7 +121,6 @@
     <Compile Include="Controllers\DescuentoController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\PlatoController.cs" />
-    <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TokenGenerator.cs" />
     <Compile Include="Controllers\TokenValidationHandler.cs" />
@@ -151,7 +151,6 @@
     <Compile Include="Persistencia\TagPersistente.cs" />
     <Compile Include="Persistencia\FamiliaPersistente.cs" />
     <Compile Include="Persistencia\PlatoPersistente.cs" />
-    <Compile Include="ProductoPersistente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
